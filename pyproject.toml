@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = { file = "LICENSE" }
 authors = [
-  { name = "NeuroModex Team" }
+  { name = "FHNW (Michel Ruchti)", email="michel.ruchti@fhnw.ch" }
 ]
 keywords = ["medical-imaging", "segmentation", "deep-learning", "VNet", "DBS"]
 classifiers = [
