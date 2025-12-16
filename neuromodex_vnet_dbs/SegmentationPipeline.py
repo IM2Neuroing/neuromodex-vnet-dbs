@@ -7,34 +7,31 @@ from pathlib import Path
 
 from neuromodex_vnet_dbs.data.postprocessing import combine_gmm_unet_volume
 from neuromodex_vnet_dbs.data.preprocessing import roi_nonzero_slices, extract_roi
+from neuromodex_vnet_dbs.data.sitk_image_handler import load_image
 from neuromodex_vnet_dbs.models.CNNBasedSegmentationModel import CNNBasedSegmentationModel
 from neuromodex_vnet_dbs.models.GMM import GMMSegmentationModel
 from neuromodex_vnet_dbs.models.architecture.VNet import VNet
-from slicer.BrainSegmentation.neuromodex_vnet_dbs.data.postprocessing import post_process_filling
+from neuromodex_vnet_dbs.data.postprocessing import post_process_filling
 
 
 class SegmentationPipeline(BaseProcessor):
 
     def __init__(self, input_volume: str | sitk.Image, fill_empty=False):
+
         if type(input_volume) == str:
-            if not Path(input_volume).exists():
-                raise ValueError(f"Input volume not found: {input_volume}")
-            try:
-                input_volume = sitk.ReadImage(input_volume)
-            except Exception as e:
-                raise ValueError(f"Could not read image from {input_volume}") from e
+            input_volume = load_image(input_volume)
 
         # ROI extraction
         self.volume = extract_roi(input_volume, roi_nonzero_slices(input_volume))
 
-        self.cnn_model_name = "SpacingAware_VNetS"
+        self.cnn_model_name = "SpacingAwareVNetS"
         self.fill_empty = fill_empty
 
     def segment_fast(self):
         try:
             self._log(f"Starting segmentation with model: {self.cnn_model_name}")
 
-            model = CNNBasedSegmentationModel(VNet(spacing_aware=True), target_spacing=None)
+            model = CNNBasedSegmentationModel(VNet(spacing_aware=True), target_spacing=None, seg_name=self.cnn_model_name)
 
             # Preprocessing
             preprocessed_volume = model.preprocess(self.volume)

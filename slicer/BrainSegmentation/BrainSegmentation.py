@@ -57,13 +57,15 @@ def main():
         help="Segmentation model to use. Default is 'VNetS', Available: VNetS, VNetSGMM"
     )
     parser.add_argument(
-        "--fillEmptyWithGM"
+        "--fillEmptyWithGM",
+        default=False,
+        help="Fill empty voxels with GM probability map.",
     )
     args = parser.parse_args()
 
     pipeline = SegmentationPipeline(
         args.inputVolume,
-        args.fillEmptyWithGMM,
+        args.fillEmptyWithGM,
     )
 
     if args.model == "VNetSGMM":

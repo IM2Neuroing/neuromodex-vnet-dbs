@@ -115,29 +115,15 @@ class CNNBasedSegmentationModel(SegmentationModelBase):
             self._log_error(f"Unsupported checkpoint format in {weight_path}")
             return
 
-        # Clean common prefixes like 'module.' (DataParallel/DDP) or leading 'model.' todo remove
-        def _clean_keys(sd: dict):
-            cleaned = {}
-            for k, v in sd.items():
-                new_k = k
-                if new_k.startswith("module."):
-                    new_k = new_k[len("module."):]
-                if new_k.startswith("model."):
-                    new_k = new_k[len("model."):]
-                cleaned[new_k] = v
-            return cleaned
-
-        cleaned_state_dict = _clean_keys(state_dict)
-
         # Move model to device before loading
         self.model.to(self.device)
 
         # Try strict load first, fallback to strict=False
         try:
-            self.model.load_state_dict(cleaned_state_dict, strict=True)
+            self.model.load_state_dict(state_dict, strict=True)
         except Exception as e:
             self._log(f"Strict load failed with: {e}. Retrying with strict=False.")
-            missing, unexpected = self.model.load_state_dict(cleaned_state_dict, strict=False)
+            missing, unexpected = self.model.load_state_dict(state_dict, strict=False)
             if len(missing) > 0:
                 self._log(f"Missing keys when loading weights: {missing}")
             if len(unexpected) > 0:

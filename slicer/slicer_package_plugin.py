@@ -76,7 +76,7 @@ def package_plugin(plugin_name):
 
     if config["copy_weights"]:
         print("📥 Copying weights...")
-        shutil.copytree(WEIGHTS_DIR, source_path / "weights", dirs_exist_ok=True)
+        shutil.copytree(WEIGHTS_DIR, source_path / WEIGHTS_DIR.parent.name / "weights", dirs_exist_ok=True)
 
 def main():
     selected_plugins = prompt_plugin_selection()
