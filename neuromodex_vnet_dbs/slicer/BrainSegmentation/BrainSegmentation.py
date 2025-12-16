@@ -26,10 +26,12 @@ def install_if_missing(module, lib):
 
 install_if_missing("torch", "torch")
 install_if_missing("sklearn", "scikit-learn")
+install_if_missing("scipy", "scipy")
+install_if_missing("neuromodex-vnet-dbs", "neuromodex-vnet-dbs")
 
 try:
     import SimpleITK as sitk
-    from neuromodex_vnet_dbs.pipelines.SegmentationPipeline import SegmentationPipeline
+    from neuromodex_vnet_dbs import SegmentationPipeline
 except ImportError as e:
     logging.error(f"Import error: {str(e)}")
     raise

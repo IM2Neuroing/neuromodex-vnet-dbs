@@ -6,7 +6,7 @@ import configparser
 from pathlib import Path
 
 SLICER_VERSION = "5.8.0"
-BASE_EXTENSION_DIR = Path(".")
+BASE_EXTENSION_DIR = Path(__file__).parent
 
 def prompt_plugin_selection(available_plugins):
     print("\U0001F9E0 Slicer Plugin Installer")
@@ -120,7 +120,7 @@ def install_plugin(plugin_name, extension_folder, ini_file, slicer_root):
     else:
         print(f"ℹ️ INI already contains: {relative_path}")
 
-def main():
+def interactive_installation():
     available_plugins = [d.name for d in BASE_EXTENSION_DIR.iterdir() if d.is_dir()]
     selected_plugins = prompt_plugin_selection(available_plugins)
 
@@ -135,7 +135,8 @@ def main():
 
     print("\n🎉 Installation complete!")
     print("🔁 Restart Slicer to activate the plugins.")
-    input()
+    if __name__ == "__main__":
+        input()
 
 if __name__ == "__main__":
-    main()
+    interactive_installation()

@@ -1,2 +1,3 @@
 .idea
 slicer/*/neuromodex_vnet_dbs
+**/__pycache__/

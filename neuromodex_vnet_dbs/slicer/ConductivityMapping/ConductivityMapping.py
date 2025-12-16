@@ -1,12 +1,34 @@
 #!/usr/bin/env python-real
 
+import os
 import sys
 import logging
 import argparse
 
+if hasattr(sys, '_MEIPASS'):
+    # PyInstaller bundle case
+    sys.path.append(sys._MEIPASS)
+else:
+    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+
+def install_if_missing(module, lib):
+    try:
+        __import__(module)
+    except ImportError:
+        try:
+            import slicer.util
+            slicer.util.pip_install(lib)
+        except Exception:
+            print("Please install " + lib + " manually.")
+
+
+install_if_missing("neuromodex-vnet-dbs", "neuromodex-vnet-dbs")
+
+
 try:
     import SimpleITK as sitk
-    from neuromodex_vnet_dbs.pipelines.ConductivityProcessingPipeline import ConductivityProcessingPipeline
+    from neuromodex_vnet_dbs import ConductivityProcessingPipeline
 except ImportError as e:
     logging.error(f"Import error: {str(e)}")
     raise
