@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling>=1.25.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "neuromodex-vnet-dbs"
+version = "0.1.0"
+description = "NeuroModex VNet DBS: segmentation and conductivity mapping utilities"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [
+  { name = "NeuroModex Team" }
+]
+keywords = ["medical-imaging", "segmentation", "deep-learning", "VNet", "DBS"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+dependencies = [
+  "numpy>=2.3.5",
+  "scipy>=1.16.1",
+  "SimpleITK>=2.5.3",
+  "torch>=2.9.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/"
+
+[tool.hatch.build]
+exclude = [
+  ".venv/**",
+  ".idea/**",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = [
+  "neuromodex_vnet_dbs",
+]
+include = [
+  "neuromodex_vnet_dbs/weights/**",
+]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "neuromodex_vnet_dbs/**",
+  "LICENSE",
+  "pyproject.toml",
+  "README.md",
+]

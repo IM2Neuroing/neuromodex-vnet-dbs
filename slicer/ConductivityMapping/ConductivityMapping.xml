@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<executable>
+  <category>Electrical Conductivity</category>
+  <title>Conductivity Mapping</title>
+  <description>Compute conductivity maps from an MRI and segmentation.</description>
+  <version>1.0</version>
+  <documentation-url>https://example.com</documentation-url>
+
+  <parameters>
+    <label>Input Volumes</label>
+    <description>Input segmentation and MRI</description>
+
+    <image>
+      <name>inputSegmentation</name>
+      <longflag>--inputSegmentation</longflag>
+      <description>Input segmentation volume (e.g. brainmask NIfTI)</description>
+      <label>Input Segmentation</label>
+      <channel>input</channel>
+    </image>
+
+    <image>
+      <name>inputMRI</name>
+      <longflag>--inputMRI</longflag>
+      <description>Input MRI volume</description>
+      <label>Input MRI</label>
+      <channel>input</channel>
+    </image>
+  </parameters>
+
+  <parameters>
+    <label>Output Volume</label>
+    <description>Output mapped conductivity volume</description>
+
+    <image>
+      <name>outputVolume</name>
+      <longflag>--outputVolume</longflag>
+      <description>Output file (e.g. conductivity.nii.gz)</description>
+      <label>Output Volume</label>
+      <channel>output</channel>
+    </image>
+  </parameters>
+
+  <parameters>
+    <label>Conductivity Settings</label>
+    <description>Override tissue conductivity values</description>
+
+    <float>
+      <name>csfConductivity</name>
+      <label>CSF Conductivity</label>
+      <longflag>--csfConductivity</longflag>
+      <default>2.0</default>
+      <description>Conductivity of CSF (default: 2.0)</description>
+    </float>
+
+    <float>
+      <name>gmConductivity</name>
+      <label>GM Conductivity</label>
+      <longflag>--gmConductivity</longflag>
+      <default>0.123</default>
+      <description>Conductivity of grey matter (default: 0.123)</description>
+    </float>
+
+    <float>
+      <name>wmConductivity</name>
+      <label>WM Conductivity</label>
+      <longflag>--wmConductivity</longflag>
+      <default>0.0754</default>
+      <description>Conductivity of white matter (default: 0.0754)</description>
+    </float>
+  </parameters>
+</executable>
+

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<executable>
+    <category>Segmentation</category>
+    <index>0</index>
+    <title>Brain Segmentation</title>
+    <description><![CDATA[Automated brain segmentation machine learning models]]></description>
+    <version>1.0</version>
+    <documentation-url>https://github.com/lassoan/SlicerPythonCLIExample</documentation-url>
+    <license>BSD</license>
+    <contributor>Michel Ruchti (FHNW)</contributor>
+    <acknowledgements>
+        <![CDATA[This work is part of the DBS Simulation Pipeline managed by FHNW]]>
+    </acknowledgements>
+
+    <parameters>
+        <label>Parameters</label>
+
+        <image>
+            <name>inputVolume</name>
+            <label>Input Volume</label>
+            <longflag>--inputVolume</longflag>
+            <channel>input</channel>
+            <description><![CDATA[Input MRI volume to segment]]></description>
+        </image>
+
+        <image>
+            <name>outputVolume</name>
+            <label>Output Volume</label>
+            <longflag>--outputVolume</longflag>
+            <channel>output</channel>
+            <description><![CDATA[Resulting segmentation volume]]></description>
+        </image>
+
+        <boolean>
+            <name>fillEmptyWithGM</name>
+            <label>Fill empty values with GM</label>
+            <longflag>--fillEmptyWithGM</longflag>
+            <description>
+                <![CDATA[If enabled, empty / unlabeled voxels will be filled with Grey Matter (GM).]]>
+            </description>
+            <default>false</default>
+        </boolean>
+
+        <string-enumeration>
+            <name>model</name>
+            <label>Segmentation Model</label>
+            <longflag>--model</longflag>
+            <description>Select which model to use for segmentation</description>
+            <default>VNetS</default>
+            <element>VNetS</element>
+            <element>VNetSGMM</element>
+        </string-enumeration>
+
+    </parameters>
+</executable>
