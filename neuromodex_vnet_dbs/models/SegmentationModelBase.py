@@ -12,7 +12,8 @@ class SegmentationModelBase(BaseProcessor):
     Abstract base to work with every segmentation model (Prob or CNN)
     """
 
-    def __init__(self, seg_name: str, n_components: int = 3, verbose: bool = False):
+    def __init__(self, seg_name: str, n_components: int = 3, verbose: bool = False, **kwargs):
+        super().__init__(**kwargs)
         np.random.seed(99)
         self.n_components = n_components
         self.verbose = verbose

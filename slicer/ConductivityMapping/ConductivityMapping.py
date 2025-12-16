@@ -6,7 +6,7 @@ import argparse
 
 try:
     import SimpleITK as sitk
-    from neuromodex_vnet_dbs.ConductivityProcessingPipeline import ConductivityProcessingPipeline
+    from neuromodex_vnet_dbs.pipelines.ConductivityProcessingPipeline import ConductivityProcessingPipeline
 except ImportError as e:
     logging.error(f"Import error: {str(e)}")
     raise

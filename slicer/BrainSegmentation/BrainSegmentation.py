@@ -29,7 +29,7 @@ install_if_missing("sklearn", "scikit-learn")
 
 try:
     import SimpleITK as sitk
-    from neuromodex_vnet_dbs.SegmentationPipeline import SegmentationPipeline
+    from neuromodex_vnet_dbs.pipelines.SegmentationPipeline import SegmentationPipeline
 except ImportError as e:
     logging.error(f"Import error: {str(e)}")
     raise

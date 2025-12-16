@@ -1,7 +1,7 @@
 import shutil
 import sys
 from pathlib import Path
-
+# WILL BE REMOVED IN THE FUTURE
 SRC_DIR = Path("../neuromodex_vnet_dbs")
 WEIGHTS_DIR = Path("../neuromodex_vnet_dbs/weights")
 BASE_EXTENSION_DIR = Path(".")
@@ -9,7 +9,7 @@ BASE_EXTENSION_DIR = Path(".")
 PLUGINS = {
     "BrainSegmentation": {
         "files": [
-            "SegmentationPipeline.py",
+            "pipelines/SegmentationPipeline.py",
             "models/SegmentationModelBase.py",
             "models/CNNBasedSegmentationModel.py",
             "models/GMM.py",
@@ -24,7 +24,7 @@ PLUGINS = {
     },
     "ConductivityMapping": {
         "files": [
-            "ConductivityProcessingPipeline.py",
+            "pipelines/ConductivityProcessingPipeline.py",
             "core/BaseProcessor.py",
             "models/ConductivityMapper.py",
             "data/sitk_transform.py",

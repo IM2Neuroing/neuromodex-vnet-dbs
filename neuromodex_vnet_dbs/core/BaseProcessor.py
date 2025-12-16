@@ -7,13 +7,13 @@ class BaseProcessor(ABC):
     Base logging functionality
     """
     time_log = None
-    verbose = False
+
+    def __init__(self, verbose=True):
+        self.verbose = verbose
 
     def _log(self, message):
-        print(f"{datetime.now().strftime('%H:%M:%S')} - {self.__class__.__name__}: " + message)
-
-    def _log_verbose(self, message):
-        print(f"{datetime.now().strftime('%H:%M:%S')} - {self.__class__.__name__}: " + message)
+        if self.verbose:
+            print(f"{datetime.now().strftime('%H:%M:%S')} - {self.__class__.__name__}: " + message)
 
     def _log_warn(self, message):
         print(f"{datetime.now().strftime('%H:%M:%S')} - WARN in {self.__class__.__name__}: " + message)

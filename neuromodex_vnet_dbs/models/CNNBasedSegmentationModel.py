@@ -111,7 +111,6 @@ class CNNBasedSegmentationModel(SegmentationModelBase):
                 # assume it's already a state dict
                 state_dict = checkpoint
         else:
-            # Unexpected format
             self._log_error(f"Unsupported checkpoint format in {weight_path}")
             return
 

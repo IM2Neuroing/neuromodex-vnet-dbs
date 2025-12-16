@@ -7,7 +7,8 @@ from neuromodex_vnet_dbs.core.BaseProcessor import BaseProcessor
 
 class ConductivityMapper(BaseProcessor):
 
-    def __init__(self, csf_cond, gm_cond, wm_cond):
+    def __init__(self, csf_cond, gm_cond, wm_cond, **kwargs):
+        super().__init__(**kwargs)
         self.csf_cond = csf_cond
         self.gm_cond = gm_cond
         self.wm_cond = wm_cond

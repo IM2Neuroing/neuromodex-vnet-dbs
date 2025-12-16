@@ -3,7 +3,6 @@ import sys
 import SimpleITK as sitk
 
 from neuromodex_vnet_dbs.core.BaseProcessor import BaseProcessor
-from pathlib import Path
 
 from neuromodex_vnet_dbs.data.postprocessing import combine_gmm_unet_volume
 from neuromodex_vnet_dbs.data.preprocessing import roi_nonzero_slices, extract_roi
@@ -16,8 +15,8 @@ from neuromodex_vnet_dbs.data.postprocessing import post_process_filling
 
 class SegmentationPipeline(BaseProcessor):
 
-    def __init__(self, input_volume: str | sitk.Image, fill_empty=False):
-
+    def __init__(self, input_volume: str | sitk.Image, fill_empty=False, **kwargs):
+        super().__init__(**kwargs)
         if type(input_volume) == str:
             input_volume = load_image(input_volume)
 
