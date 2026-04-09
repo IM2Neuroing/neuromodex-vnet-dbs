@@ -33,7 +33,9 @@ downloads.
 
 Quick start Segmentation
 -----------
-Note that the input image must be skull stripped and preferably N4 bias corrected.
+*Note that the input image must be skull stripped and preferably N4 bias corrected. Good choices are HD_BET and
+SimpleITK's N4BiasFieldCorrection.*
+
 
 ```python
 import SimpleITK as sitk
@@ -53,6 +55,13 @@ result = pipe.segment_gmm_csf(img)  # ~1.5 minutes
 
 # The returned object is the segmented image
 ```
+You can also use the `segment_vnet` function to segment a volume with a single command: 
+
+```python
+from neuromodex_vnet_dbs.easy_segment import segment_vnet
+
+segmented = segment_vnet("path/to/mri_image.nii.gz")
+```
 
 Quick Start Conductivity Mapping
 -----------
@@ -66,6 +75,14 @@ seg_img = sitk.ReadImage("path/to/seg_image.nii.gz")
 
 pipe = ConductivityProcessingPipeline(seg_img, mri_img)
 result = pipe.run()
+```
+
+Or use the easy wrapper:
+
+```python
+from neuromodex_vnet_dbs.easy_conductivity_mapping import map_conductivities
+
+conductivities = map_conductivities("path/to/mri_image.nii.gz", "path/to/seg_image.nii.gz")
 ```
 
 3D Slicer integration
@@ -90,6 +107,8 @@ python neuromodex_vnet_dbs/slicer/slicer_install_plugin.py
 Follow the prompts to choose the plugin(s) and target Slicer installation. Restart Slicer afterwards.
 
 The plugins can then be found in Segmentation/BrainSegmentation and Electrical Conductivity/ConductivityMapping.
+
+Note: The first execution in slicer will take a few minutes to download all the required data.
 
 License
 -------

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "neuromodex-vnet-dbs"
-version = "0.2.1"
+version = "0.2.2"
 description = "NeuroModex VNet DBS: segmentation and conductivity mapping utilities"
 readme = "README.md"
 requires-python = ">=3.9"

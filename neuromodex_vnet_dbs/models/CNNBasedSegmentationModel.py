@@ -6,7 +6,7 @@ import SimpleITK as sitk
 
 from scipy.ndimage import binary_erosion
 
-from neuromodex_vnet_dbs.data.preprocessing import denoise, remove_outliers_if_contrast_agent, \
+from neuromodex_vnet_dbs.data.preprocessing import denoise, \
     remove_outlier_intensities, normalize_sitk, pad_to_divisible
 from neuromodex_vnet_dbs.data.sitk_transform import get_float32_image_array, resample_to_spacing
 from neuromodex_vnet_dbs.models.SegmentationModelBase import SegmentationModelBase
@@ -42,7 +42,6 @@ class CNNBasedSegmentationModel(SegmentationModelBase):
         if self.target_spacing is not None:
             sitk_image = resample_to_spacing(sitk_image, target_spacing=self.target_spacing, interpolator=sitk.sitkLinear)
         sitk_image = denoise(sitk_image)
-        sitk_image = remove_outliers_if_contrast_agent(sitk_image)
         sitk_image = remove_outlier_intensities(sitk_image)
         sitk_image = normalize_sitk(sitk_image)
         sitk_image = pad_to_divisible(sitk_image, divisor=self.padding_divisibility)
