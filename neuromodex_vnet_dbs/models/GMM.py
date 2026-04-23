@@ -57,8 +57,6 @@ class GMMSegmentationModel(ProbabilisticBasedSegmentationModel):
         self.covariances = self.covariances[sort_indices]
         self.weights = self.weights[sort_indices]
 
-        self.plot_gmm(X)
-
         for iteration in range(self.max_iter):
             # -- E-Step --
             resp = np.zeros((N, self.n_components))
@@ -82,13 +80,11 @@ class GMMSegmentationModel(ProbabilisticBasedSegmentationModel):
 
             if self.verbose and iteration % 10 == 0:
                 self._log(f"Segmentation Iteration {iteration}: {ll}")
-                self.plot_gmm(X, f"GMM for iteration {iteration}")
 
             # Termination condition
             if iteration > 1 and np.abs(self.log_likelihoods[-1] - self.log_likelihoods[-2]) < self.tol:
                 break
 
-        self.plot_gmm(X, f"Final GMM for iteration {iteration}")
         if resp is None:
             self._log(f"No responsibilities found in {self.max_iter} Iterations ")
         else:
